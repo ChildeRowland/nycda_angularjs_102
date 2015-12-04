@@ -1,0 +1,75 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js">
+		</script>
+		
+	    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	    <title>Angular 102 HW1</title>
+
+	    <!-- Bootstrap -->
+	    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<script src="index.js">
+		</script>
+		<style type="text/css">
+			.only {
+				background: blue;
+				color: orange;
+			}
+		</style>
+	</head>
+
+	<body ng-app="homeWorkOne">
+		<div ng-controller="mainController as ctrl" class="container">
+			<h1 ng-bind="ctrl.message"></h1>
+
+			<!-- radio buttons for selecting theme -->
+			<div class="row">
+				<div ng-bind="themeButtons" class="col-md-12"></div>
+				<label class="radio-inline">
+					<input 
+						type="radio"
+						name="radioButtons"
+						ng-model="ctrl.themeSelection"
+						ng-value="ctrl.themeOne" />{{ ctrl.themeOne.name }}
+				</label>
+				<label class="radio-inline">
+					<input 
+						type="radio"
+						name="radioButtons"
+						ng-model="ctrl.themeSelection"
+						ng-value="ctrl.themeTwo" />{{ ctrl.themeTwo.name }}
+				</label>
+				<label class="radio-inline">
+					<input 
+						type="radio"
+						name="radioButtons"
+						ng-model="ctrl.themeSelection"
+						ng-value="ctrl.themeThree" />{{ ctrl.themeThree.name }}
+				</label>
+				<label class="radio-inline">
+					<input 
+						type="radio"
+						name="radioButtons"
+						ng-model="ctrl.themeSelection"
+						ng-value="ctrl.themeFour" />{{ ctrl.themeFour.name }}
+				</label>
+			</div>
+
+			<!-- content boxes -->
+			<div class="row">
+  				<div class="col-md-6" ng-class="{only: ctrl.themeSelection}">
+  					<h4 ng-bind="ctrl.themeSelection.name"></h4>
+  					<p>
+  						.col-md-6
+  					</p>
+  				</div>
+  				<div class="col-md-6">.col-md-6</div>
+			</div>
+		</div>
+	</body>
+</html>

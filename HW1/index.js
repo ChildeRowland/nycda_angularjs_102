@@ -3,34 +3,20 @@ var homeWorkOne = angular.module('homeWorkOne', [])
 homeWorkOne.controller('mainController', function() {
 	var self = this
 
-	this.message = "Home Work One, themes";
+	this.message = "HW1, Theme Selection";
 
 	this.themeSelect = {
 
-		one : { name: "Mid-Ninties Jam" },
+		one : { name: "Mid-Nineties Jam", themeOne: "ninetiesA", themeTwo: "ninetiesB" },
 
-		two : { name: "Parchment" },
+		two : { name: "Parchment", themeOne: "parchmentA", themeTwo: "parchmentB" },
 
-		three : { name: "Snazzy-Do" },
+		three : { name: "Snazzy-Do", themeOne: "snazzyA", themeTwo: "snazzyB" },
 
-		four : { name: "None" }
+		four : { name: "None", themeOne: "noneA", themeTwo: "noneB" }
 
 	};
 
-	// this.themeOne = {
-	// 	name: "Mid-Ninties Jam"
-	// };
-
-	// this.themeTwo = {
-	// 	name: "Parchment"
-	// };
-
-	// this.themeThree = {
-	// 	name: "Snazzy-Do"
-	// };
-
-	// this.themeFour = {
-	// 	name: "None"
-	// };
+	this.themeSelection = "None";
 
 })

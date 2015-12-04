@@ -1,4 +1,4 @@
-<html>
+<html ng-app="homeWorkOne" ng-controller="mainController as ctrl">
 	<head>
 		<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,20 +15,45 @@
 
 		<script src="index.js">
 		</script>
-		<style type="text/css">
-			.only {
-				background: blue;
-				color: orange;
+		<!-- Is there a way to interate over the object with the style tag? -->
+		<style type="text/css" ng-repeat="(key, value) in ctrl.themeSelect">
+			.{{ ctrl.themeSelect.one.themeOne }} {
+				background: aqua;
+				color: yellow;
 			}
 
-			.nome {
+			.{{ ctrl.themeSelect.two.themeOne }} {
+				background: #ebd5b3;
+			}
+
+			.{{ ctrl.themeSelect.three.themeOne }} {
+				background: #666699;
+				color: #99cc00;
+			}
+
+			.{{ ctrl.themeSelect.one.themeTwo }} {
+				background: red;
+				color: aqua;
+			}
+
+			.{{ ctrl.themeSelect.two.themeTwo }} {
+				background: #ebd5b3;
+				color: grey;
+			}
+
+			.{{ ctrl.themeSelect.three.themeTwo }} {
+				background: #cc00ff;
+				color: #99ff99;
+			}
+
+			.none {
 
 			}
 		</style>
 	</head>
 
-	<body ng-app="homeWorkOne">
-		<div ng-controller="mainController as ctrl" class="container">
+	<body>
+		<div class="container">
 			<h1 ng-bind="ctrl.message"></h1>
 
 			<!-- radio buttons for selecting theme -->
@@ -66,13 +91,49 @@
 
 			<!-- content boxes -->
 			<div class="row">
-  				<div class="col-md-6" ng-class="{only: ctrl.themeSelection, none: ctrl.themeSelection}">
+  				<div class="col-md-6" ng-class="{ninetiesA: ctrl.themeSelection == 'Mid-Nineties Jam', parchmentA: ctrl.themeSelection == 'Parchment', snazzyA: ctrl.themeSelection == 'Snazzy-Do'}">
   					<h4 ng-bind="ctrl.themeSelection"></h4>
   					<p>
-  						.col-md-6
+  						NOT that I love thy children, whose dull eyes<br> 
+						See nothing save their own unlovely woe,<br>
+						Whose minds know nothing, nothing care to know,—<br>	 
+						But that the roar of thy Democracies,<br> 
+						Thy reigns of Terror, thy great Anarchies,<br>
+						Mirror my wildest passions like the sea,—<br>
+						And give my rage a brother——! Liberty!<br>
+						For this sake only do thy dissonant cries<br> 
+						Delight my discreet soul, else might all kings<br>
+						By bloody knout or treacherous cannonades<br>
+						Rob nations of their rights inviolate<br>
+						And I remain unmoved—and yet, and yet,<br>
+						These Christs that die upon the barricades,<br>
+						God knows it I am with them, in some things.<br>
+						-Oscar Wilde
   					</p>
   				</div>
-  				<div class="col-md-6">.col-md-6</div>
+  				<div class="col-md-6" ng-class="{ninetiesB: ctrl.themeSelection == 'Mid-Nineties Jam', parchmentB: ctrl.themeSelection == 'Parchment', snazzyB: ctrl.themeSelection == 'Snazzy-Do'}">
+  					<h4 ng-bind="ctrl.themeSelection"></h4>
+  					<p>
+  						Ne reprenez, Dames, si j’ai aimé,<br>
+						Si j’ai senti mille torches ardentes,<br>
+						Mille travaux, mille douleurs mordantes.<br>
+						Si, en pleurant, j’ai mon temps consumé,<br>
+
+						Las ! que mon nom n’en soit par vous blamé.<br>
+						Si j’ai failli, les peines sont présentes,<br>
+						N’aigrissez point leurs pointes violentes:<br>
+						Mais estimez qu’Amour, à point nommé,<br>
+
+						Sans votre ardeur d’un Vulcain excuser,<br>
+						Sans la beauté d’Adonis accuser,<br>
+						Pourra, s’il veut, plus vous rendre amoureuses,<br>
+
+						En ayant moins que moi d’occasion,<br>
+						Et plus d’étrange et forte passion.<br>
+						Et gardez-vous d’être plus malheureuses!<br>
+						-Louise Labé
+  					</p>
+  				</div>
 			</div>
 		</div>
 	</body>

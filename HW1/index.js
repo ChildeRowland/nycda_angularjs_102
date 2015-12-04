@@ -20,3 +20,10 @@ homeWorkOne.controller('mainController', function() {
 	this.themeSelection = "None";
 
 })
+
+homeWorkOne.controller('folderController', function() {
+	var self = this
+
+	self.message = "HW1 Nested Folders"
+
+})

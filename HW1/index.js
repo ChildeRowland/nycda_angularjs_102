@@ -5,20 +5,32 @@ homeWorkOne.controller('mainController', function() {
 
 	this.message = "Home Work One, themes";
 
-	this.themeOne = {
-		name: "Mid-Ninties Jam"
+	this.themeSelect = {
+
+		one : { name: "Mid-Ninties Jam" },
+
+		two : { name: "Parchment" },
+
+		three : { name: "Snazzy-Do" },
+
+		four : { name: "None" }
+
 	};
 
-	this.themeTwo = {
-		name: "Parchment"
-	};
+	// this.themeOne = {
+	// 	name: "Mid-Ninties Jam"
+	// };
 
-	this.themeThree = {
-		name: "Snazzy-Do"
-	};
+	// this.themeTwo = {
+	// 	name: "Parchment"
+	// };
 
-	this.themeFour = {
-		name: "None"
-	};
+	// this.themeThree = {
+	// 	name: "Snazzy-Do"
+	// };
+
+	// this.themeFour = {
+	// 	name: "None"
+	// };
 
 })

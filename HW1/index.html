@@ -20,6 +20,10 @@
 				background: blue;
 				color: orange;
 			}
+
+			.nome {
+
+			}
 		</style>
 	</head>
 
@@ -35,35 +39,35 @@
 						type="radio"
 						name="radioButtons"
 						ng-model="ctrl.themeSelection"
-						ng-value="ctrl.themeOne" />{{ ctrl.themeOne.name }}
+						ng-value="ctrl.themeSelect.one.name" />{{ ctrl.themeSelect.one.name }}
 				</label>
 				<label class="radio-inline">
 					<input 
 						type="radio"
 						name="radioButtons"
 						ng-model="ctrl.themeSelection"
-						ng-value="ctrl.themeTwo" />{{ ctrl.themeTwo.name }}
+						ng-value="ctrl.themeSelect.two.name" />{{ ctrl.themeSelect.two.name }}
 				</label>
 				<label class="radio-inline">
 					<input 
 						type="radio"
 						name="radioButtons"
 						ng-model="ctrl.themeSelection"
-						ng-value="ctrl.themeThree" />{{ ctrl.themeThree.name }}
+						ng-value="ctrl.themeSelect.three.name" />{{ ctrl.themeSelect.three.name }}
 				</label>
 				<label class="radio-inline">
 					<input 
 						type="radio"
 						name="radioButtons"
 						ng-model="ctrl.themeSelection"
-						ng-value="ctrl.themeFour" />{{ ctrl.themeFour.name }}
+						ng-value="ctrl.themeSelect.four.name" />{{ ctrl.themeSelect.four.name }}
 				</label>
 			</div>
 
 			<!-- content boxes -->
 			<div class="row">
-  				<div class="col-md-6" ng-class="{only: ctrl.themeSelection}">
-  					<h4 ng-bind="ctrl.themeSelection.name"></h4>
+  				<div class="col-md-6" ng-class="{only: ctrl.themeSelection, none: ctrl.themeSelection}">
+  					<h4 ng-bind="ctrl.themeSelection"></h4>
   					<p>
   						.col-md-6
   					</p>

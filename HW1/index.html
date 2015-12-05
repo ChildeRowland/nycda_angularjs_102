@@ -137,10 +137,39 @@
 			</div>
 
 			<div ng-controller="folderController as fldr">
-				<h2 ng-bind="fldr.message">
+				<h2 ng-bind="fldr.message"></h2>
 
-				</h2>
+				<div ng-repeat="dir in fldr.homeDir">
+					<div ng-repeat="(folder, contents) in dir">
+						<h4 ng-bind="folder"></h4>
+						<div ng-repeat="file in contents">
+							<span ng-bind="file"></span>
+						</div>
+					</div>
+				</div>
+
+				<form ng-submit="fldr.addNewFile(input, fldr.homeDir[0].documents)">
+					<input type="text" ng-model="input" name="input" />
+					<input type="submit" value="add file" />
+
+					<div ng-repeat="dir in fldr.homeDir">
+						<div ng-repeat="(folder, contents) in dir">
+							<input
+								type="radio"
+								ng-value="fldr.homeDir.folder" />{{ folder }}
+						</div>
+					</div>
+
+				</form>
+
 			</div>
 		</div>
 	</body>
 </html>
+
+<!-- <div ng-controller="MyFormController">
+  <form ng-submit="add(field)">
+    <input type="text" name="field" ng-model="field" />
+    <input type="submit" value="Submit" />
+  </form>
+</div> -->

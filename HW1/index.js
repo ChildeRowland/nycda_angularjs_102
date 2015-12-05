@@ -26,4 +26,14 @@ homeWorkOne.controller('folderController', function() {
 
 	self.message = "HW1 Nested Folders"
 
+	self.documentsDir = { documents: ["declairation_of_macho"] };
+	self.picturesDir = { pictures: ["cat_with_taco", "cat_with_donkey" ] };
+	self.recipesDir = { recipes: ["candy_bread", "sweets_confit", "flavor_crystal_surprise"] };
+
+	self.homeDir = [ self.documentsDir, self.picturesDir, self.recipesDir ];
+
+	self.addNewFile = function(input, path) {
+		path.push(input);
+	}
+
 })

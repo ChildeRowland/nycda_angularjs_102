@@ -136,32 +136,43 @@
   				</div>
 			</div>
 
-			<div ng-controller="folderController as fldr">
+			<div ng-controller="folderController as fldr" class="row">
 				<h2 ng-bind="fldr.message"></h2>
 
-				<div ng-repeat="dir in fldr.homeDir">
-					<div ng-repeat="(folder, contents) in dir">
-						<h4 ng-bind="folder"></h4>
-						<div ng-repeat="file in contents">
-							<span ng-bind="file"></span>
+				<div class="col-md-6">
+					<form ng-submit="fldr.addNewFile(fldr.input, fldr.name)" name="fldr.addFileForm">
+						
+						<input type="text" ng-model="fldr.input" name="input" />
+						<input type="submit" value="add file" />
+
+						<div ng-repeat="dir in fldr.homeDir">
+							<div ng-repeat="(folder, contents) in dir">
+								<label class="radio-inline">
+									<input
+										type="radio"
+										ng-value="folder"
+										ng-model="fldr.name"
+										name="folderSelect" />{{ folder }}
+								</label>
+							</div>
 						</div>
-					</div>
+					</form>
+					
 				</div>
 
-				<form ng-submit="fldr.addNewFile(input, fldr.homeDir[0].documents)">
-					<input type="text" ng-model="input" name="input" />
-					<input type="submit" value="add file" />
+				<span>{{ fldr.documentsDir[documents] }}</span>
 
+				<div class="col-md-6">
 					<div ng-repeat="dir in fldr.homeDir">
 						<div ng-repeat="(folder, contents) in dir">
-							<input
-								type="radio"
-								ng-value="fldr.homeDir.folder" />{{ folder }}
+							<h4 ng-bind="folder"></h4>
+							<div ng-repeat="file in contents">
+								<span ng-bind="file"></span>
+							</div>
 						</div>
 					</div>
-
-				</form>
-
+				<div>
+				
 			</div>
 		</div>
 	</body>

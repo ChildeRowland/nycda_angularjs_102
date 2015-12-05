@@ -32,8 +32,16 @@ homeWorkOne.controller('folderController', function() {
 
 	self.homeDir = [ self.documentsDir, self.picturesDir, self.recipesDir ];
 
+	self.input = "";
+
 	self.addNewFile = function(input, path) {
-		path.push(input);
+		if (input.length < 1) {
+			alert("File Name can't be Empty")
+		} else {
+			var strToObj = ("self." + path + "Dir");
+			eval(strToObj)[path].push(input);
+			self.input = "";
+		}
 	}
 
 })

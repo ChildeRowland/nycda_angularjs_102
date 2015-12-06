@@ -32,6 +32,8 @@ homeWorkOne.controller('folderController', function() {
 
 	self.homeDir = [ self.documentsDir, self.picturesDir, self.recipesDir ];
 
+	self.name = "documents"
+
 	self.input = "";
 
 	self.addNewFile = function(input, path) {

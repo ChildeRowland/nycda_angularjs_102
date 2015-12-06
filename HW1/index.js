@@ -26,7 +26,7 @@ homeWorkOne.controller('folderController', function() {
 
 	self.message = "HW1 Nested Folders"
 
-	self.documentsDir = { documents: ["declairation_of_macho"] };
+	self.documentsDir = { documents: ["declaration_of_macho"] };
 	self.picturesDir = { pictures: ["cat_with_taco", "cat_with_donkey" ] };
 	self.recipesDir = { recipes: ["candy_bread", "sweets_confit", "flavor_crystal_surprise"] };
 
@@ -40,8 +40,19 @@ homeWorkOne.controller('folderController', function() {
 		if (input.length < 1) {
 			alert("File Name can't be Empty")
 		} else {
-			var strToObj = ("self." + path + "Dir");
-			eval(strToObj)[path].push(input);
+
+			// this is wacky, but I was unable to pass the actually object from the view.  I settled for passing a string and evaluting the variable name.
+			var fileObj = eval("self." + path + "Dir");
+
+			// Trying to check for duplicates and add a string to the end.
+			// for ( x in fileObj[path]) { 
+			// 	if ( x == input ) {
+			// 		var input = input + "_copy";
+			// 		console.log(x);
+			// 	};
+			// }
+
+			fileObj[path].push(input);
 			self.input = "";
 		}
 	}

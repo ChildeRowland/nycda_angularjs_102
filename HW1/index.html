@@ -1,3 +1,4 @@
+<!-- I added these directives in the html tag to try and target values in the script tags with mixed results.  I know this set-up is a typical, but I couldn't get ngRepeat to work within the <head> tags. -->
 <html ng-app="homeWorkOne" ng-controller="mainController as ctrl">
 	<head>
 		<meta charset="utf-8">
@@ -7,7 +8,6 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js">
 		</script>
 		
-	    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 	    <title>Angular 102 HW1</title>
 
 	    <!-- Bootstrap -->
@@ -15,7 +15,7 @@
 
 		<script src="index.js">
 		</script>
-		<!-- Is there a way to interate over the object with the style tag? -->
+		<!-- Is there a way to iterate over the object within the style tag? -->
 		<style type="text/css" ng-repeat="(key, value) in ctrl.themeSelect">
 			.{{ ctrl.themeSelect.one.themeOne }} {
 				background: aqua;
@@ -60,6 +60,7 @@
 			<div class="row">
 				<div ng-bind="themeButtons" class="col-md-12"></div>
 				<label class="radio-inline">
+					<!-- It looks like ngBind won't work with a <input> tag.  So I had to use {{ }} -->
 					<input 
 						type="radio"
 						name="radioButtons"
@@ -91,6 +92,7 @@
 
 			<!-- content boxes -->
 			<div class="row">
+				<!-- I tried to iterate over the themeSelect object to clean up the ngClass options.  But eventually settled for a new object with equality operators. -->
   				<div class="col-md-6" ng-class="{ninetiesA: ctrl.themeSelection == 'Mid-Nineties Jam', parchmentA: ctrl.themeSelection == 'Parchment', snazzyA: ctrl.themeSelection == 'Snazzy-Do'}">
   					<h4 ng-bind="ctrl.themeSelection"></h4>
   					<p>
@@ -160,8 +162,6 @@
 					
 				</div>
 
-				<span>{{ fldr.documentsDir[documents] }}</span>
-
 				<div class="col-md-6">
 					<div ng-repeat="dir in fldr.homeDir">
 						<div ng-repeat="(folder, contents) in dir">
@@ -177,10 +177,3 @@
 		</div>
 	</body>
 </html>
-
-<!-- <div ng-controller="MyFormController">
-  <form ng-submit="add(field)">
-    <input type="text" name="field" ng-model="field" />
-    <input type="submit" value="Submit" />
-  </form>
-</div> -->

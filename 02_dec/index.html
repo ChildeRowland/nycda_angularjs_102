@@ -38,7 +38,7 @@
 			<h3>Intermediate ngRepeat</h3>
 				<ul>
 					<li ng-repeat="person in secCtrl.intermediateArray">
-						<span ng-bind="person.fname"></span>
+						<span 	ng-bind="person.fname"></span>
 						<span ng-bind="person.lname"></span>
 					</li>
 				</ul>
@@ -62,6 +62,27 @@
 			<h3>ngIf</h3>
 			<h4 ng-if="secCtrl.isMale">This user is a male.</h4>
 			<input type="checkbox" ng-model="secCtrl.isMale"/>
+
+			<h3>ngIf vs ngSHow/ngHide</h3>
+				<div>
+					<input type="checkbox" ng-model="secCtrl.ifInput">if-check
+						<div ng-if="secCtrl.ifInput" style="color: grey;">
+							Some Text
+						</div>
+				</div>
+
+				<div>
+					<input type="checkbox" ng-model="secCtrl.showInput">show-check
+						<div ng-show="secCtrl.showInput" style="color: blue;">
+							Some Text
+						</div>
+				</div>
+
+				<div>
+						<div ng-hide="secCtrl.showInput" style="color: green;">
+							Some Text
+						</div>
+				</div>
 
 			<h3>ngClass (boolen)</h3>
 			<h4 ng-class="{red: secCtrl.isMale}">ngClass with boolen</h4>

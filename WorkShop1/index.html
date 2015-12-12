@@ -12,6 +12,8 @@
 			<!-- :: before the property name, tells angular to remove from the watchlist. -->
 			<h2 ng-bind="::ctrl.welcome"></h2>
 
+			<h3 ng-bind="ctrl.countdown"></h3>
+
 			<div ng-hide="ctrl.edit">
 				<div ng-repeat="value in ctrl.personArray">
 					<span ng-bind="ctrl.person[value]"></span>
@@ -23,17 +25,31 @@
 				<div>
 					<input 
 						type="text" 
-						ng-model="ctrl.newFname"></br>
+						ng-model="ctrl.editPerson.fname"></br>
 					<input 
 						type="text" 
-						ng-model="ctrl.newLname"><br>
+						ng-model="ctrl.editPerson.lname"><br>
 					<span ng-bind="ctrl.person.email"></span>
 				</div>
 				
-				<button ng-click="ctrl.saveMe(ctrl.newFname, ctrl.newLname)">submit</button>
+				<button ng-click="ctrl.saveMe(ctrl.editPerson.fname, ctrl.editPerson.lname)">submit</button>
 				<button ng-click="ctrl.changeMe()">cancel</button>
 			</div>
 
+			<h3>ngChange</h3>
+			<div>
+				<label ng-bind="ctrl.car.make"></label>
+			</div>
+			<div>
+				<label ng-bind="ctrl.car.model"></label>
+			</div>
+			<div>
+				<input type="number" ng-value="ctrl.car.year" mg-model="ctrl.car.year">
+			</div>
+			<div>
+				<label ng-bind="ctrl.car.age"></label>
+			</div>
+			<input type="submit" ng-click="updateAge()">
 		</div>
 	</body>
 </html>

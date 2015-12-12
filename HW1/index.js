@@ -47,9 +47,9 @@ homeWorkOne.controller('folderController', function() {
 			// Trying to check for duplicates and add a string to the end.
 			// for ( x in fileObj[path]) { 
 			// 	if ( x == input ) {
-			// 		var input = input + "_copy";
+			// 		var input = (input + "_copy");
 			// 		console.log(x);
-			// 	};
+			// 	}
 			// }
 
 			fileObj[path].push(input);

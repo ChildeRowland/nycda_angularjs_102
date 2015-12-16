@@ -1,0 +1,47 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js">
+		</script>
+		<script type="text/javascript" src="index.js"></script>
+	</head>
+	<body ng-app="WS2">
+		<div ng-controller="mainController as ctrl">
+
+			<h1 ng-bind="ctrl.welcome"></h1>
+			<h2 ng-bind="ctrl.student.welcome()"></h2>
+			<div>
+				<h3>Add Assignment and Grade</h3>
+				<form>
+					<input type="text" ng-model="ctrl.student.assignment.name">
+					<input type="number" ng-model="ctrl.student.assignment.grade">
+					<input type="Submit" ng-click="ctrl.student.addGrade(ctrl.student.assignment.name, ctrl.student.assignment.grade)">
+				</form>
+			</div>
+
+			<div>
+				<h3>Report Card</h3>
+				<div ng-repeat="object in ctrl.student.reportCard">
+						<span ng-bind="object.name"></span> -
+						<span ng-bind="object.grade"></span>
+						<button ng-click="ctrl.student.removeGrade($index)">delete</button>
+				</div>
+			</div>
+
+			<div>
+				<h3>Summary</h3>
+				<div>
+					<label>GPA: </label>
+					<span ng-bind="ctrl.student.calcGPA()"></span>
+				</div>
+				<div>
+					<label>Letter: </label>
+					<span ng-bind="ctrl.convertToLetter()"></span>
+				</div>
+				<div>
+					<label>Status: </label>
+					<span ng-bind="ctrl.passFail()"></span>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

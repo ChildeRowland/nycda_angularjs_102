@@ -4,6 +4,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
 		<!-- Load JavaScript after the Angular library. -->
 		<script src="index.js"></script>
+		<script src="factories.js"></script>
 	</head>
 	<!-- Body tag with attribute and value. -->
 	<body ng-app="myApp">
@@ -14,14 +15,49 @@
 
 			<h3 ng-bind="ctrl.countdown"></h3>
 
-			<div ng-hide="ctrl.edit">
-				<div ng-repeat="value in ctrl.personArray">
-					<span ng-bind="ctrl.person[value]"></span>
+			<h3>ngChange</h3>
+			<div>
+				<label>Make: </label>
+				<span ng-bind="ctrl.car.make"></span>
+			</div>
+			<div>
+				<label>Model: </label>
+				<span ng-bind="ctrl.car.model"></span>
+			</div>
+			<div>
+				<label>Year: </label>
+				<input type="number" 
+					   ng-model="ctrl.car.year"
+					   ng-change="ctrl.car.updateAge(ctrl.car.year)" />
+			</div>
+			<div>
+				<label>Age: </label>
+				<span ng-bind="ctrl.car.age"></span>
+			</div>
+		</div>
+		
+
+		<hr>
+
+
+		<div ng-controller="personController as ctrl">
+			<div ng-hide="ctrl.button.edit">
+				<div>
+					<label>First Name: </label>
+					<span ng-bind="ctrl.person.fname"></span>
 				</div>
-				<button ng-click="ctrl.changeMe()">edit</button>
+				<div>
+					<label>Last Name: </label>
+					<span ng-bind="ctrl.person.lname"></span>
+				</div>
+				<div>
+					<label>Email: </label>
+					<span ng-bind="ctrl.person.email"></span>
+				</div>
+				<button ng-click="ctrl.button.switchEditButton()">edit</button>
 			</div>
 
-			<div ng-show="ctrl.edit">
+			<div ng-show="ctrl.button.edit">
 				<div>
 					<input 
 						type="text" 
@@ -33,23 +69,9 @@
 				</div>
 				
 				<button ng-click="ctrl.saveMe(ctrl.editPerson.fname, ctrl.editPerson.lname)">submit</button>
-				<button ng-click="ctrl.changeMe()">cancel</button>
+				<button ng-click="ctrl.restoreInfo()">cancel</button>
 			</div>
-
-			<h3>ngChange</h3>
-			<div>
-				<label ng-bind="ctrl.car.make"></label>
-			</div>
-			<div>
-				<label ng-bind="ctrl.car.model"></label>
-			</div>
-			<div>
-				<input type="number" ng-value="ctrl.car.year" mg-model="ctrl.car.year">
-			</div>
-			<div>
-				<label ng-bind="ctrl.car.age"></label>
-			</div>
-			<input type="submit" ng-click="updateAge()">
 		</div>
+
 	</body>
 </html>

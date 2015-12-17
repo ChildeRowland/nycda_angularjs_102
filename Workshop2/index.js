@@ -10,15 +10,48 @@ angular.module('WS2', [])
 
 ])
 
+.service('summaryService', function() {
+
+	function convertToLetter(number, arrayOfObjects) {
+
+		if ( number < 1 || number == NaN ) {
+			return "No Grades Yet.";
+		}
+
+		for ( idx in arrayOfObjects) {
+			if (number >= arrayOfObjects[idx].range) {
+				return arrayOfObjects[idx].grade;
+			}
+		}
+	}
+
+	this.convertToLetter = convertToLetter;
+
+
+	function passFail(number) {
+		if ( number < 1 || number == NaN ) {
+			return "No Grades Yet.";
+		}
+
+		if (number > 60) {
+			return "Passing";
+		} else {
+			return "Failing";
+		}
+	}
+
+	this.passFail = passFail;
+})
+
 .factory('StudentDTO', function() {
 
 	function Student() {
 		this.fname = "Taco";
 		this.lname = "Bean";
 		this.assignment = {};
-		// this.gpa;
+		this.gpa = 0;
 		this.reportCard = [
-			{ name: "HW1", grade: 70}
+			
 		];
 	}
 
@@ -34,8 +67,14 @@ angular.module('WS2', [])
 	}
 
 	Student.prototype.calcGPA = function() {
-		var arr = []
 		var obj = this.reportCard
+
+		if (obj.length < 1) { 
+			this.gpa = 0;	
+			return "No Grades Yet."; 
+		}
+
+		var arr = []
 
 		for ( idx in obj) {
 			arr.push(obj[idx].grade);
@@ -47,6 +86,7 @@ angular.module('WS2', [])
 		
 		var average = totalValue / arr.length
 
+		this.gpa = average;
 		return average;
 	}
 
@@ -54,34 +94,28 @@ angular.module('WS2', [])
 		this.reportCard.splice(idx, 1);
 	}
 
+	Student.prototype.checkLetter = function() {
+		this.gpa ++;
+	}
+
 	return Student;
 })
 
 
-.controller('mainController', function(StudentDTO, LETTERGRADES) {
+.controller('mainController', function(StudentDTO, LETTERGRADES, summaryService) {
 	var self = this;
+
+	// Constructor Object
 	self.student = new StudentDTO;
+
+	// value service for letter grades
 	self.letterGrades = LETTERGRADES;
 
-
-	self.convertToLetter = function() {
-		var object = self.letterGrades;
-		var gpa = self.student.calcGPA()
-
-		for ( idx in self.letterGrades) {
-			if (gpa >= object[idx].range) {
-				return object[idx].grade;
-			}
-		}
-	};
-
-	self.passFail = function() {
-		var gpa = self.student.calcGPA();
-		if (gpa > 60) {
-			return "Passing"
-		} else {
-			return "Failing"
-		}
-	};
+	// utility functions
+	self.passFailTest = summaryService.passFail;
+	self.convertToLetter = summaryService.convertToLetter;
 
 })
+
+// ngShow vs ngHide before any assignments or grades.
+// edit student

@@ -7,8 +7,8 @@
 	<body ng-app="WS2">
 		<div ng-controller="mainController as ctrl">
 
-			<h1 ng-bind="ctrl.welcome"></h1>
 			<h2 ng-bind="ctrl.student.welcome()"></h2>
+
 			<div>
 				<h3>Add Assignment and Grade</h3>
 				<form>
@@ -35,11 +35,11 @@
 				</div>
 				<div>
 					<label>Letter: </label>
-					<span ng-bind="ctrl.convertToLetter()"></span>
+					<span ng-bind="ctrl.convertToLetter(ctrl.student.gpa, ctrl.letterGrades)"></span>
 				</div>
 				<div>
 					<label>Status: </label>
-					<span ng-bind="ctrl.passFail()"></span>
+					<span ng-bind="ctrl.passFailTest(ctrl.student.gpa)"></span>
 				</div>
 			</div>
 		</div>

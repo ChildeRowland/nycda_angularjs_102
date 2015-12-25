@@ -19,33 +19,58 @@ angular.module('playListApp', [])
 
 .factory('MusicDTO', function() {
 
-	function music() {[
-		{ name: "Rock",
-			songs: [
-				{ title: "rock1", type: "" },
-				{ title: "rock2", type: "" },
-				{ title: "rock3", type: "" }
-		]}, 
-		{ name: "Pop",
-			songs: [
-				{ title: "Pop1", type: "" },
-				{ title: "Pop2", type: "" },
-				{ title: "Pop3", type: "" }
-		]},
-		{ name: "Talk",
-			songs: [
-				{ title: "Talk1", type: "" },
-				{ title: "Talk2", type: "" },
-				{ title: "Talk3", type: "" }
-		]}
-	]}
+	function Music() {
+		this.masterList = [
+			{ genre: "Rock",
+				songs: [
+					{ title: "rock1", type: "nonexplicit", selected: false },
+					{ title: "rock2", type: "explicit", selected: false },
+					{ title: "rock3", type: "explicit", selected: false }
+			]}, 
+			{ genre: "Pop",
+				songs: [
+					{ title: "Pop1", type: "explicit", selected: false },
+					{ title: "Pop2", type: "nonexplicit", selected: false },
+					{ title: "Pop3", type: "explicit", selected: false }
+			]},
+			{ genre: "Talk",
+				songs: [
+					{ title: "Talk1", type: "nonexplicit", selected: false },
+					{ title: "Talk2", type: "explicit", selected: false },
+					{ title: "Talk3", type: "explicit", selected: false }
+			]}
+		]
+	}
+
+	Music.prototype.getGenres = function() {
+		array = [];
+		for ( index in this.masterList ) {
+			array.push(this.masterList[index].genre);
+		}
+		return array;
+	}
+
+	return Music;
 
 })
 
-.controller('mainController', function(UserDTO) {
+.controller('mainController', function(UserDTO, MusicDTO) {
 	var self = this;
 	self.user = new UserDTO;
+	self.music = new MusicDTO;
+
+	self.genreList = self.music.getGenres();
+	console.log(self.genreList);
 
 	self.welcome = "'s up";
+
+	self.updateSelection = function(boolean) {
+		console.log(boolean);
+	}
+
+	self.genreListIndex = 0;
+
+	self.selected = [];
+	console.log(self.music.masterList[0].songs[0]);
 
 })

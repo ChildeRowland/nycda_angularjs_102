@@ -27,25 +27,24 @@
 			<div>
 				<h3>Genre Selection</h3>
 				<form>
-					<div>
-						<label>Rock</label>
+					<div ng-repeat="genre in ctrl.genreList">
+						<label ng-bind="genre"></label>
 						<input type="radio"
-							   name="genreSelect">
-					</div>
-					<div>
-						<label>Pop</label>
-						<input type="radio"
-							   name="genreSelect">
-					</div>
-					<div>
-						<label>Talk</label>
-						<input type="radio"
-							   name="genreSelect">
+							   name="genreSelect"
+							   ng-value="$index"
+							   ng-model="ctrl.genreListIndex">
 					</div>
 				</form>
 			</div>
 
 			<button ng-click="ctrl.user.update(ctrl.user.name, ctrl.user.age)">Submit</button>
+
+			<h3>Genre Selected: {{ ctrl.genreList[ctrl.genreListIndex] }}</h3>
+			<div ng-repeat="song in ctrl.music.masterList[ctrl.genreListIndex].songs">
+				-- {{ song.title }}
+				
+			</div>
+
 		</div>
 	</body>
 </html>

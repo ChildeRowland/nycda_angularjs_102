@@ -21,6 +21,32 @@
 						<input type="number"
 						       ng-model="ctrl.user.age">
 					</div>
+					<div>
+						<input type="submit"
+							   value="Who Dat?"
+							   ng-click="ctrl.user.addUser(ctrl.user.name, ctrl.user.age)">
+					</div>
+				</form>
+			</div>
+
+			<div>
+				<h3>Explicit Lyrics?</h3>
+				<form>
+					<div>
+						<label>Explicit Lyrics</label>
+						<input type="radio" 
+							   name="explicitSelect"
+							   value="explicit"
+							   ng-model="ctrl.lyricType">
+					</div>
+					<div>
+						<label>Safe Lyrics</label>
+						<input type="radio" 
+						 	   name="explicitSelect"
+						 	   value="safe"
+						 	   ng-model="ctrl.lyricType"
+						 	   ng-change="ctrl.music.removeExplicit()">
+					</div>
 				</form>
 			</div>
 
@@ -37,13 +63,24 @@
 				</form>
 			</div>
 
-			<button ng-click="ctrl.user.update(ctrl.user.name, ctrl.user.age)">Submit</button>
-
 			<h3>Genre Selected: {{ ctrl.genreList[ctrl.genreListIndex] }}</h3>
 			<div ng-repeat="song in ctrl.music.masterList[ctrl.genreListIndex].songs">
-				-- {{ song.title }}
-				
-			</div>
+				<label ng-bind="song.title" 
+				       ng-if="ctrl.music.isNonExplicit(ctrl.genreListIndex, $index, ctrl.lyricType)">
+				</label>
+				<input type="checkbox"
+					   ng-model="song.selected"
+					   ng-if="ctrl.music.isNonExplicit(ctrl.genreListIndex, $index, ctrl.lyricType)">
+
+					   {{ ctrl.music.masterList[ctrl.genreListIndex].songs[$index] }}
+			</div><br>
+
+			<button ng-click="ctrl.createPlayList()">Submit</button>
+
+			{{ ctrl.summary }}
+
+			<hr>
+			{{ ctrl.music.masterList }}<br>
 
 		</div>
 	</body>

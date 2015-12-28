@@ -9,9 +9,11 @@ angular.module('playListApp', [])
 	}
 
 	User.prototype.addUser = function(name, age) {
+		if ( name == undefined || age == undefined ) {
+			return alert('Please enter name and age.');
+		}
 		this.name = name;
 		this.age = age;
-		console.log(this.name, this.age);
 	}
 
 	return User;
@@ -64,7 +66,6 @@ angular.module('playListApp', [])
 		for ( index in array ) {
 			delete array[index].selected;
 		}
-		console.log(array);
 		return array;
 	}
 
@@ -89,25 +90,74 @@ angular.module('playListApp', [])
 	}
 
 	return Music;
+})
+
+.service('validateService', function() {
+
+	checkForEmpty = function(value) {
+		if ( Number.isInteger(value)) {
+			value = value.toString();
+		}
+
+		if ( value.length > 0 ) {
+			return true;
+		}
+	}
+
+	this.checkForEmpty = checkForEmpty;
+
+	checkForAge = function(number) {
+		if ( number >= 18 ) {
+			return true;
+		}
+	}
+
+	this.checkForAge = checkForAge;
 
 })
 
-.controller('mainController', function(UserDTO, MusicDTO) {
+.service('uploadService', function() {
+
+	newSong = function() {
+		return { title: "", type: "nonexplicit" }
+	}
+
+	this.newSong = newSong;
+
+	uploadSong = function(array, object) {
+		array.push(object);
+	}
+
+	this.uploadSong = uploadSong;
+
+})
+
+.controller('mainController', function(UserDTO, MusicDTO, validateService, uploadService) {
 	var self = this;
 	self.user = new UserDTO;
 	self.music = new MusicDTO;
+	self.checkForEmpty = validateService.checkForEmpty;
+	self.checkForAge = validateService.checkForAge;
+	self.newSong = uploadService.newSong();
+	self.uploadSong = uploadService.uploadSong;
+
+	self.lyricType = "safe";
 
 	// Gather the genres into an array and set the default index to 0.
 	self.genreList = self.music.getGenres();
 	self.genreListIndex = 0;
 
-	self.createPlayList = function() {
-		self.summary = self.music.addSong()
-	}
+	self.uploadAndReset = function(array, object) {
+		self.uploadSong(array, object);
+		self.newSong = uploadService.newSong();
+	};
 
 	self.summary = [];
 
-	self.lyricType = "explicit";
+	self.createPlayList = function() {
+		self.summary = self.music.addSong();
+		console.log(self.summary);
+	}
 
 	self.welcome = "Welcome to 'S up Tempo";
 })

@@ -4,21 +4,17 @@ angular.module('simonApp', [])
 
 	function Simon() {
 		this.pallet = ["red", "blue", "yellow", "green"];
+		this.palletIndex = "";
 		this.currentColor = "";
-		this.allColors = [];
+		this.allChoices = [];
 	}
 
-	Simon.prototype.simonSays = function () {
+	Simon.prototype.says = function () {
 		num = this.pallet.length;
-		index = Math.ceil( Math.random() * num ) - 1;
-		console.log("simonSays() " + this.pallet[index]);
-		return this.pallet[index];
-	}
-
-	Simon.prototype.addColorToList = function() {
-		this.allColors.push(color);
-		console.log("addColorToList()", this.allColors);
-		return this.allColors;
+		this.palletIndex = Math.ceil( Math.random() * num ) - 1;
+		this.currentColor = this.pallet[this.palletIndex];
+		this.allChoices.push(this.currentColor);
+		console.log(this.palletIndex);
 	}
 
 	return Simon;
@@ -26,20 +22,44 @@ angular.module('simonApp', [])
 
 .factory('PlayerDTO', function() {
 
-})
-
-.controller('mainController', function(SimonDTO) {
-	var self = this;
-	self.simon = new SimonDTO;
-
-	self.test = function() {
-		color = self.simon.simonSays();
-		self.simon.addColorToList();
+	function Player() {
+		this.says = "";
+		this.allChoices = [];
 	}
 
-	self.playerPress = function(color) {
-		self.playerColor = color;
-		return color;
+	Player.prototype.select = function(color) {
+		this.says = color;
+		this.allChoices.push(this.says);
+	}
+
+	return Player;
+})
+
+.controller('mainController', function($timeout, SimonDTO, PlayerDTO) {
+	var self = this;
+	self.simon = new SimonDTO;
+	self.player = new PlayerDTO;
+
+
+	self.buttonIndex;
+	self.button = []
+
+	self.buttonEffect = function(num) {
+		self.button[num] = self.simon.pallet[num] + "-pressed";
+		self.buttonIndex = num;
+		$timeout(function() { self.button[num] = null; }, 180);
+	}
+
+	self.result = "";
+
+	self.compareColors = function() {
+		for ( index in this.player.allChoices ) {
+			if ( self.player.allChoices[index] == self.simon.allChoices[index] ) {
+				self.result = true;
+			} else { 
+				return self.result = false;
+			}
+		}
 	}
 
 	self.welcome = "Simon Says";

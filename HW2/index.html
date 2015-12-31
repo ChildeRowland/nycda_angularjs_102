@@ -22,20 +22,29 @@
 		   	<div>
 				<h1 ng-bind="ctrl.welcome"></h1>
 
-				<button ng-click="ctrl.test()">Simon Says</button>
-				{{ ctrl.simon.allColors }}
+				<button ng-click="ctrl.simon.says();
+								  ctrl.buttonEffect(ctrl.simon.palletIndex)">Simon Says</button><br>
+				Simon: {{ ctrl.simon.allChoices }}<br>
+				Player: {{ ctrl.player.allChoices }}<br>
+				Result: {{ ctrl.result }}
 			</div>
 
 			<div id="simon-board">
 				<div ng-repeat="color in ctrl.simon.pallet">
-					<div class="button"
+					<div class="button {{ ctrl.button[$index] }}"
 						 ng-class="color"
-					     ng-click="ctrl.playerPress(color)">
-					     {{ color + $index }}
+						 ng-model="ctrl.button[$index]"
+					     ng-click="ctrl.buttonEffect($index); 
+					        	   ctrl.player.select(color)">
 					</div>
 				</div>
 			</div>
-			{{ ctrl.playerColor }}
+			{{ ctrl.simon.pallet[ctrl.buttonIndex] }}
+
+			<div class="summary">
+				<h3>Game Options</h3>
+				<button ng-click="ctrl.compareColors()">check arrays</button>
+			</div>
 
 		</div>
 	</body>

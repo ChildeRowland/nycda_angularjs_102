@@ -1,37 +1,69 @@
+
+/****************************** 
+Genral game board 
+******************************/
+
 #simon-board {
-	width:48%; 
-	margin:4px; 
+	width: 445px; 
+	margin: 4px; 
 	border-radius: 135px;
-	border:1px solid grey;
+	border: 2px solid #87599E;
 	background: black;
 	float: left;
 }
+
+
+.summary {
+	float: left;
+}
+
+
+/****************************** 
+Buttons before and after click 
+******************************/
 
 .button {
 	width:45%; 
 	height:200px; 
 	margin:11px; 
-	border:1px solid grey;
-	background: pink;
+	border:1.5px solid #87599E;
 	float: left;
 }
 
 .red {
-	background: red;
+	background: #F07F7D;
 	border-radius: 75% 5% 5% 2%;
 }
 
+.red-pressed {
+	background: #ED0E0E;
+}
+
 .blue {
-	background: blue;
+	background: #1BBCF2;
 	border-radius: 2% 75% 5% 5%;
 }
 
+.blue-pressed {
+	background: #1825DB;
+}
+
 .yellow {
-	background: yellow;
+	background: #F9FFB5;
 	border-radius: 5% 2% 5% 75%;
 }
 
+.yellow-pressed {
+	background: #FFFF00;
+}
+
 .green {
-	background: green;
+	background: #8CFF8C;
 	border-radius: 2% 5% 75% 5%;
 }
+
+.green-pressed {
+	background: #00FF00;
+}
+
+

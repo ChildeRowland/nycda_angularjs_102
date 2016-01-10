@@ -22,8 +22,7 @@
 		   	<div>
 				<h1 ng-bind="ctrl.welcome"></h1>
 
-				<button ng-click="ctrl.simon.says();
-								  ctrl.buttonEffect(ctrl.simon.palletIndex)">Simon Says</button><br>
+				<button ng-click="ctrl.simon.says();">Simon Says</button><br>
 				Simon: {{ ctrl.simon.allChoices }}<br>
 				Player: {{ ctrl.player.allChoices }}<br>
 				Result: {{ ctrl.result }}
@@ -34,16 +33,19 @@
 					<div class="button {{ ctrl.button[$index] }}"
 						 ng-class="color"
 						 ng-model="ctrl.button[$index]"
-					     ng-click="ctrl.buttonEffect($index); 
-					        	   ctrl.player.select(color)">
+					     ng-click="ctrl.buttonEffect($index, 
+					     							 ctrl.button, 
+					     							 ctrl.simon.pallet); 
+					        	   ctrl.player.select(color);
+					        	   ctrl.checkSelections();">
 					</div>
 				</div>
 			</div>
-			{{ ctrl.simon.pallet[ctrl.buttonIndex] }}
+			{{ ctrl.button }}
 
 			<div class="summary">
 				<h3>Game Options</h3>
-				<button ng-click="ctrl.compareColors()">check arrays</button>
+				<button ng-click="ctrl.gameCycle()">Start Game</button>
 			</div>
 
 		</div>

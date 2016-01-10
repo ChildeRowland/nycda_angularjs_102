@@ -1,10 +1,11 @@
 angular.module('simonApp', [])
 
-.factory('SimonDTO', function() {
+.factory('SimonDTO', function($timeout) {
 
 	function Simon() {
 		this.pallet = ["red", "blue", "yellow", "green"];
 		this.palletIndex = "";
+		this.arrayForButton = [];
 		this.currentColor = "";
 		this.allChoices = [];
 	}
@@ -14,7 +15,21 @@ angular.module('simonApp', [])
 		this.palletIndex = Math.ceil( Math.random() * num ) - 1;
 		this.currentColor = this.pallet[this.palletIndex];
 		this.allChoices.push(this.currentColor);
-		console.log(this.palletIndex);
+		this.arrayForButton.push(this.palletIndex);
+	}
+
+	Simon.prototype.repeat = function() {
+		parent = this;
+		for ( index in this.arrayForButton ) { 
+
+			this.palletIndex = this.arrayForButton[index];
+			
+			$timeout(function() { 
+				parent.palletIndex = "";
+			}, 2000);
+
+			
+		 }
 	}
 
 	return Simon;
@@ -25,11 +40,14 @@ angular.module('simonApp', [])
 	function Player() {
 		this.says = "";
 		this.allChoices = [];
+		this.turn = false;
 	}
 
 	Player.prototype.select = function(color) {
-		this.says = color;
-		this.allChoices.push(this.says);
+		if ( this.turn == true ) { 
+			this.says = color;
+			this.allChoices.push(this.says);
+		}
 	}
 
 	return Player;
@@ -40,26 +58,72 @@ angular.module('simonApp', [])
 	self.simon = new SimonDTO;
 	self.player = new PlayerDTO;
 
-
-	self.buttonIndex;
 	self.button = []
 
-	self.buttonEffect = function(num) {
-		self.button[num] = self.simon.pallet[num] + "-pressed";
-		self.buttonIndex = num;
-		$timeout(function() { self.button[num] = null; }, 180);
+	self.buttonEffect = function(obj, array1, array2, counter) {
+		array1 = array1 || [];
+		array2 = array2 || [];
+		counter = counter || 0;
+
+
+		if ( Array.isArray(obj) ) {
+			num = obj[counter];
+		} else {
+			num = obj;
+		}
+
+		array1[num] = array2[num] + "-pressed";
+		$timeout(function() { 
+			console.log(array1[num]);
+			array1[num] = null;
+		}, 400);
+
+		$timeout(function() {
+
+			if ( !Number.isInteger(obj) &&
+			 counter < obj.length - 1 ) {
+
+				counter++;
+				self.buttonEffect(obj, array1, array2, counter);
+				console.log(obj, counter);
+			}
+		}, 1000);
 	}
 
 	self.result = "";
 
-	self.compareColors = function() {
-		for ( index in this.player.allChoices ) {
-			if ( self.player.allChoices[index] == self.simon.allChoices[index] ) {
-				self.result = true;
-			} else { 
-				return self.result = false;
-			}
+
+	self.gameCycle = function() {
+		self.player.allChoices = [];
+		self.simon.says();
+		self.buttonEffect(self.simon.arrayForButton, 
+						  self.button, 
+						  self.simon.pallet, 
+						  0);
+		self.player.turn = true;
+	}
+
+	self.roundLength = function() {
+		if (self.player.allChoices.length == self.simon.allChoices.length) {
+			self.gameCycle();
+		} 
+	}
+
+	self.checkSelections = function() {
+		playerChoice = self.player.allChoices[self.player.allChoices.length - 1]
+		simonChoice = self.simon.allChoices[self.player.allChoices.length - 1]
+		
+		if ( playerChoice == simonChoice ) { 
+
+			self.result = "Correct!";
+			self.roundLength();
+
+		} else {
+
+			self.result = "Wrong"
+
 		}
+
 	}
 
 	self.welcome = "Simon Says";

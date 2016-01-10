@@ -1,0 +1,15 @@
+<div class="container">
+  
+    <h3 ng-bind="ctrl.welcome"></h3>
+
+    <form>
+    	<input type="text"
+    		   ng-model="ctrl.userInput"
+    		   ng-change="ctrl.update()">
+    </form>
+
+    <div ng-repeat="array in ctrl.results">
+    	<span ng-bind="::array.formatted_address">
+    </div>
+
+</div>

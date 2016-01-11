@@ -66,4 +66,8 @@ Buttons before and after click
 	background: #00FF00;
 }
 
+.active {
+	background: white;
+}
+
 

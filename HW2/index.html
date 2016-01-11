@@ -32,10 +32,8 @@
 				<div ng-repeat="color in ctrl.simon.pallet">
 					<div class="button {{ ctrl.button[$index] }}"
 						 ng-class="color"
-						 ng-model="ctrl.button[$index]"
-					     ng-click="ctrl.buttonEffect($index, 
-					     							 ctrl.button, 
-					     							 ctrl.simon.pallet); 
+						 
+					     ng-click="ctrl.buttonEffect(color, $index); 
 					        	   ctrl.player.select(color);
 					        	   ctrl.checkSelections();">
 					</div>

@@ -60,34 +60,31 @@ angular.module('simonApp', [])
 
 	self.button = []
 
-	self.buttonEffect = function(obj, array1, array2, counter) {
-		array1 = array1 || [];
-		array2 = array2 || [];
+	self.displaySimon = function(counter) {
 		counter = counter || 0;
-
-
-		if ( Array.isArray(obj) ) {
-			num = obj[counter];
-		} else {
-			num = obj;
+		if ( counter == self.simon.allChoices.length - 1 ) {
+			return
 		}
 
-		array1[num] = array2[num] + "-pressed";
-		$timeout(function() { 
-			console.log(array1[num]);
-			array1[num] = null;
-		}, 400);
-
 		$timeout(function() {
+			
+			self.buttonEffect(self.simon.allChoices[counter], self.simon.arrayForButton[counter]);
+			counter ++
 
-			if ( !Number.isInteger(obj) &&
-			 counter < obj.length - 1 ) {
+			$timeout(function() {
+				self.displaySimon(counter);
+			}, 1000);
 
-				counter++;
-				self.buttonEffect(obj, array1, array2, counter);
-				console.log(obj, counter);
-			}
-		}, 1000);
+		}, 500);
+	}
+
+	self.buttonEffect = function(color, num) {
+		
+		self.button[num] = color + "-pressed";
+		$timeout(function() { 
+			console.log(self.button[num]);
+			self.button[num] = null;
+		}, 400);
 	}
 
 	self.result = "";
@@ -96,10 +93,7 @@ angular.module('simonApp', [])
 	self.gameCycle = function() {
 		self.player.allChoices = [];
 		self.simon.says();
-		self.buttonEffect(self.simon.arrayForButton, 
-						  self.button, 
-						  self.simon.pallet, 
-						  0);
+		self.displaySimon(0, self.simon.arrayForButton[0]);
 		self.player.turn = true;
 	}
 

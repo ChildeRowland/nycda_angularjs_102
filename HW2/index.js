@@ -3,7 +3,14 @@ angular.module('simonApp', [])
 .factory('SimonDTO', function($timeout) {
 
 	function Simon() {
-		this.pallet = ["red", "blue", "yellow", "green"];
+		this.pallet = [
+
+			{ color: "red", active: false },
+			{ color: "blue", active: false },
+			{ color: "yellow", active: false },
+			{ color: "green", active: false },
+
+		];
 		this.palletIndex = "";
 		this.arrayForButton = [];
 		this.currentColor = "";
@@ -15,99 +22,96 @@ angular.module('simonApp', [])
 		this.palletIndex = Math.ceil( Math.random() * num ) - 1;
 		this.currentColor = this.pallet[this.palletIndex];
 		this.allChoices.push(this.currentColor);
-		this.arrayForButton.push(this.palletIndex);
-	}
-
-	Simon.prototype.repeat = function() {
-		parent = this;
-		for ( index in this.arrayForButton ) { 
-
-			this.palletIndex = this.arrayForButton[index];
-			
-			$timeout(function() { 
-				parent.palletIndex = "";
-			}, 2000);
-
-			
-		 }
 	}
 
 	return Simon;
 })
 
-.factory('PlayerDTO', function() {
+.factory('PlayerDTO', function($timeout) {
 
 	function Player() {
 		this.says = "";
 		this.allChoices = [];
 		this.turn = false;
+		this.game = false;
 	}
 
-	Player.prototype.select = function(color) {
-		if ( this.turn == true ) { 
-			this.says = color;
-			this.allChoices.push(this.says);
-		}
+	Player.prototype.select = function(obj) {
+		this.says = obj;
+		this.allChoices.push(this.says);
 	}
 
 	return Player;
 })
 
-.controller('mainController', function($timeout, SimonDTO, PlayerDTO) {
+.service('effects', function($timeout) {
 	var self = this;
-	self.simon = new SimonDTO;
-	self.player = new PlayerDTO;
 
-	self.button = []
+	self.buttonEffect = function(obj, time) {
+		time = time || 400;
+		obj.active = true;
+		$timeout(function() { 
+			obj.active = false;
+		}, time);
+	}
 
-	self.displaySimon = function(counter) {
+})
+
+.controller('mainController', function($timeout, SimonDTO, PlayerDTO, effects) {
+	var self = this;
+	self.buttonEffect = effects.buttonEffect;
+	self.simonSequence = effects.simonSequence;
+
+	self.initializeGame = function() {
+		self.simon = new SimonDTO;
+		self.player = new PlayerDTO;
+		self.result = "";
+		self.player.game = false;
+	}
+
+	self.gameCycle = function() {
+		self.player.game = true;
+		self.player.turn = false;
+		self.player.allChoices = [];
+		self.simon.says();
+		self.simonSequence(self.simon.allChoices, self.player.turn);
+	}
+
+
+	self.simonSequence = function(array, counter, time) {
 		counter = counter || 0;
-		if ( counter == self.simon.allChoices.length - 1 ) {
-			return
+		time = time || 500;
+		if ( counter == array.length ) {
+			return self.player.turn = true;
 		}
 
 		$timeout(function() {
 			
-			self.buttonEffect(self.simon.allChoices[counter], self.simon.arrayForButton[counter]);
+			self.buttonEffect(array[counter]);
 			counter ++
 
 			$timeout(function() {
-				self.displaySimon(counter);
-			}, 1000);
+				self.simonSequence(array, counter);
+			}, time);
 
-		}, 500);
+		}, time);
 	}
 
-	self.buttonEffect = function(color, num) {
-		
-		self.button[num] = color + "-pressed";
-		$timeout(function() { 
-			console.log(self.button[num]);
-			self.button[num] = null;
-		}, 400);
-	}
 
-	self.result = "";
-
-
-	self.gameCycle = function() {
-		self.player.allChoices = [];
-		self.simon.says();
-		self.displaySimon(0, self.simon.arrayForButton[0]);
-		self.player.turn = true;
-	}
-
-	self.roundLength = function() {
-		if (self.player.allChoices.length == self.simon.allChoices.length) {
-			self.gameCycle();
-		} 
+	self.playerInput = function(obj) {
+		if ( self.player.turn == true ) {
+			self.buttonEffect(obj);
+			self.player.select(obj);
+			self.checkSelections();
+		}
 	}
 
 	self.checkSelections = function() {
+		
 		playerChoice = self.player.allChoices[self.player.allChoices.length - 1]
 		simonChoice = self.simon.allChoices[self.player.allChoices.length - 1]
 		
-		if ( playerChoice == simonChoice ) { 
+		if ( playerChoice.color == simonChoice.color ) { 
 
 			self.result = "Correct!";
 			self.roundLength();
@@ -115,11 +119,21 @@ angular.module('simonApp', [])
 		} else {
 
 			self.result = "Wrong"
+			self.player.game = false;
+			self.initializeGame();
 
 		}
+	}
 
+	self.roundLength = function() {
+		if (self.player.allChoices.length == self.simon.allChoices.length) {
+			$timeout(function() {
+				self.gameCycle();
+			}, 500);
+		} 
 	}
 
 	self.welcome = "Simon Says";
+	self.initializeGame();
 
 })

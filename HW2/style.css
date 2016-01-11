@@ -17,6 +17,10 @@ Genral game board
 	float: left;
 }
 
+.ng-hide {
+	display: none!important;
+}
+
 
 /****************************** 
 Buttons before and after click 
@@ -28,46 +32,31 @@ Buttons before and after click
 	margin:11px; 
 	border:1.5px solid #87599E;
 	float: left;
+	opacity: 0.6;
 }
 
 .red {
-	background: #F07F7D;
+	background: #ED0E0E;
 	border-radius: 75% 5% 5% 2%;
 }
 
-.red-pressed {
-	background: #ED0E0E;
-}
-
 .blue {
-	background: #1BBCF2;
+	background: #1825DB;
 	border-radius: 2% 75% 5% 5%;
 }
 
-.blue-pressed {
-	background: #1825DB;
-}
-
 .yellow {
-	background: #F9FFB5;
+	background: #FFFF00;
 	border-radius: 5% 2% 5% 75%;
 }
 
-.yellow-pressed {
-	background: #FFFF00;
-}
-
 .green {
-	background: #8CFF8C;
+	background: #00FF00;
 	border-radius: 2% 5% 75% 5%;
 }
 
-.green-pressed {
-	background: #00FF00;
-}
-
 .active {
-	background: white;
+	opacity: 1.0;
 }
 
 

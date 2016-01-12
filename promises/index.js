@@ -1,5 +1,11 @@
 angular.module('myApp', ['MyServiceModule'])
 
+.service('MainCtrlDataService', function(PeopleRestService) {
+	var self = this;
+
+	
+})
+
 .controller('mainController', function(MyResource) {
 	var self = this;
 

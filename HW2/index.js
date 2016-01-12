@@ -81,6 +81,7 @@ angular.module('simonApp', [])
 	self.simonSequence = function(array, counter, time) {
 		counter = counter || 0;
 		time = time || 500;
+		
 		if ( counter == array.length ) {
 			return self.player.turn = true;
 		}

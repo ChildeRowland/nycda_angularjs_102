@@ -1,6 +1,20 @@
 angular.module('MyServiceModule', ['ngResource'])
 
-.factory('MyResource', function($resource) {
+.service('PeopleRESTService', function($log, PeopleResource) {
+	var self = this;
+
+	self.getPeopleList = function(params, onCompletion) {
+		$log.debug('Getting People List with params: ', params);
+		PeopleResource.getPeople(params).$promise
+		.then(function onSuccess(responce)) {
+
+		}, function onError(error) {
+			$log.error(error);
+		};
+	};
+})
+
+.factory('PeopleResource', function($resource) {
 	return $resource('sampleData.json', {
 		// Query paramters can be added here:
 		limit: 20,
@@ -13,6 +27,10 @@ angular.module('MyServiceModule', ['ngResource'])
 		}
 	});
 });
+
+.factory('FriendsResource', function($resource) {
+	return $resource()
+})
 
 // URL argument
 // '/api/user/signup'

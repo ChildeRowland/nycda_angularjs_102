@@ -6,7 +6,7 @@
   .controller('MainController', function MainController(GoogleResource) {
     var self = this;
 
-    self.welcome = "Tacos";
+    self.welcome = "Enter a Location:";
 
     self.userInput = "";
     self.results = "";

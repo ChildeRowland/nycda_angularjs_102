@@ -1,0 +1,49 @@
+<div class="container">
+  
+    <h3 ng-bind="ctrl.welcome"></h3>
+
+    <form name="ctrl.myForm" ng-submit="ctrl.onSubmit()" novalidate>
+
+    	<div>
+    		<input type="text"
+    			   name="usernameInput"
+    		   	   ng-model="ctrl.username" 
+    		   	   placeholder="User name"
+    		   	   required>
+    	</div>
+    	<div ng-show="ctrl.myForm.usernameInput.$invalid">
+    		Enter Name
+    	</div>
+
+    	<div>
+    		<input type="email"
+    		   	   ng-model="ctrl.email" 
+    		   	   placeholder="Email">
+    	</div>
+
+    	<div>
+    		<input type="text"
+    		   	   ng-model="ctrl.phone" 
+    		   	   placeholder="Phone"
+    		   	   ng-pattern="/^\d$/">
+    	</div>
+
+    	<div>
+    		<label>States</label>
+    		<select ng-options="state as state.name for state in ctrl.states"
+    				ng-model="ctrl.userState">
+
+    		</select>
+    	</div>
+
+    	<input type="submit" 
+    		   value="submit" 
+    		   ng-disabled="ctrl.myForm.$invalid">
+
+    </form>
+
+    <pre>
+    	{{ ctrl.userState | json }}
+    </pre>
+
+</div>

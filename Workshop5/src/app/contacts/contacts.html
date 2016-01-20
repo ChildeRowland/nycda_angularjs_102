@@ -1,0 +1,15 @@
+<div class="container">
+  
+    <h3 ng-bind="ctrl.welcome"></h3>
+
+    <div ng-repeat="obj in ctrl.contacts.list">
+    	<div>
+    		<span ng-bind="obj.name"></span>
+    	</div>
+    </div>
+
+    <pre>
+    	{{ ctrl.contacts.list | json }}
+    </pre>
+
+</div>

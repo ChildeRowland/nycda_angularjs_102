@@ -2,4 +2,14 @@
 
   <h3 ng-bind="ctrl.welcome"></h3>
 
+  <div ng-repeat="person in ctrl.people">
+  	<h3 ng-bind="person.name"></h3>
+  		<div ng-repeat="friend in ctrl.people[person.index].friends">
+  			<span ng-bind="friend.name"></span>
+  		</div>
+  </div>
+
+<pre>
+  {{  }}
+</pre>
 </div>

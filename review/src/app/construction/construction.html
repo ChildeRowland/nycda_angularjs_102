@@ -1,0 +1,11 @@
+<div class="container">
+
+  <h3 ng-bind="ctrl.welcome"></h3>
+
+  <div ng-repeat="result in ctrl.results | orderBy:'+approved'">
+	  <pre>
+	  	{{ result | json }}
+	  </pre>
+  </div>
+
+</div>

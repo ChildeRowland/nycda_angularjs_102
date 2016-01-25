@@ -29,9 +29,18 @@
         controllerAs: 'ctrl'
       })
 
-      .state('data', {
-        url: '/data',
-        templateUrl: 'app/profiles/services/sampleData.json'
+      .state('construction', {
+        url: '/construction',
+        templateUrl: 'app/construction/construction.html',
+        controller: 'ConstructionController',
+        controllerAs: 'ctrl'
+      })
+
+      .state('tests', {
+        url: '/tests',
+        templateUrl: 'app/testFilters/testFilters.html',
+        controller: 'TestFilterController',
+        controllerAs: 'ctrl'
       });
 
     $urlRouterProvider.otherwise('/');

@@ -2,4 +2,40 @@
 
   <h3 ng-bind="ctrl.welcome"></h3>
 
+  <input type="text"
+  		 ng-model="ctrl.criteria.$"
+  		 ng-change="ctrl.onFilterCriteria()"
+  		 placeholder="All">
+  <br><br>
+
+  <input type="text"
+  		 ng-model="ctrl.criteria.fname"
+  		 ng-change="ctrl.onFilterCriteria()"
+  		 placeholder="First Name">
+  <br><br>
+
+  <input type="text"
+  		 ng-model="ctrl.criteria.lname"
+  		 ng-change="ctrl.onFilterCriteria()"
+  		 placeholder="Last Name">
+  <br><br>
+
+  <input type="text"
+  		 ng-model="ctrl.criteria.age"
+  		 ng-change="ctrl.onFilterCriteria()"
+  		 placeholder="Age">
+  <br><br>
+
+  <div ng-repeat="person in ctrl.results">
+  	<div>
+  		<label>First Name: </label><span ng-bind="person.fname"></span>
+  	</div>
+  	<div>
+  		<label>Last Name: </label><span ng-bind="person.lname"></span>
+  	</div>
+  	<div>
+  		<label>Age: </label><span ng-bind="person.age"></span>
+  	</div>
+  </div>
+
 </div>

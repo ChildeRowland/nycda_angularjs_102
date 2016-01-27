@@ -3,7 +3,25 @@
 
   angular.module('review')
 
-    .controller('ProfilesController', function($log, personResource, personFriendResource) {
+    .directive('cmFriend', function() {
+        return {
+            controller: 'friendsController',
+            controllerAs: 'friendsCtrl',
+        };
+    })
+
+    .controller('friendsController', function($scope, personFriendResource) {
+        var self = this;
+
+        console.log($scope.person);
+
+        personFriendResource.query({friendId: $scope.person._id}).$promise
+            .then(function onSuccess(responce) {
+                self.friends = responce;            
+        });
+    })
+
+    .controller('ProfilesController', function($log, personResource) {
     var self = this;
 
     self.welcome = "ngResource with local JSON file";
@@ -20,16 +38,10 @@
     promiseObject.then(function onSuccess(responce) {
     	self.people = responce;
         
-        self.people.forEach(function(person) {
+        // self.people.forEach(function(person) {
         
-            personFriendResource.query({friendId: person._id}).$promise
-            .then(function onSuccess(responce) {
-                
-                self.people[person.index].friends = responce;
-                // person.friends = responce;
             
-            });
-        })
+        // })
 
     }, function onError(error) {
     	$log.error(error);

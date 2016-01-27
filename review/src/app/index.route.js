@@ -41,6 +41,13 @@
         templateUrl: 'app/testFilters/testFilters.html',
         controller: 'TestFilterController',
         controllerAs: 'ctrl'
+      })
+
+      .state('custom', {
+        url: '/custom',
+        templateUrl: 'app/custom/custom.html',
+        controller: 'CustomController',
+        controllerAs: 'ctrl'
       });
 
     $urlRouterProvider.otherwise('/');

@@ -2,4 +2,28 @@
 
   <h3 ng-bind="ctrl.welcome"></h3>
 
+  <input type="text" 
+         ng-model="ctrl.userInput"
+         ng-change="ctrl.filterSearch()"
+         placeholder="controller search" />
+  <br /><br />
+
+  {{ ctrl.userInput }}
+
+  <div ng-repeat="monologue in ctrl.results">
+    <div>
+      <label>Playwright</label>
+      <span ng-bind="monologue.playwright"></span>
+    </div>
+    <div>
+      <label>Character</label>
+      <span ng-bind="monologue.character"></span>
+    </div>
+    <br />
+  </div>
+
+  <pre>
+    {{ ctrl.allMonologues | json }}
+  </pre>
+
 </div>
